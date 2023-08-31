@@ -9,18 +9,16 @@
 int _sqrt_recursion(int n)
 {
 
-	if (n == 1)
-	{
-		return (1);
-	}
-	if (n == 0)
-	{
-		return (0);
-	}
-	if (n < 0)
-	{
-		return (-1);
-	}
-	n++;
-		return (_sqrt_recursion(n));
+	if (n == 0 || n == 1)
+		return (n);
+	int sqrt_half = _sqrt_recursion(n / 2);
+
+	if (sqrt_half * sqrt_half == n)
+		return (sqrt_half);
+	if (n % 2 == 1)
+		int sqrt_next_odd = _sqrt_recursion((n + 1) / 2);
+
+		if (sqrt_next_odd * sqrt_next_odd == n)
+			return (sqrt_next_odd);
+	return (-1);
 }
