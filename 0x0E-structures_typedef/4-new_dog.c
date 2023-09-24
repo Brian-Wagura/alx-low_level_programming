@@ -3,48 +3,44 @@
  #include <stdio.h> 
   
  /** 
-  * new_dog - new dog 
-  * @name: name's dog 
-  * @age: age's dog 
-  * @owner: owner's dog 
-  * Return: newdog 
-  */ 
-  
- dog_t *new_dog(char *name, float age, char *owner) 
- { 
-  
-         int i = 0, j = 0, k; 
-         dog_t *dog; 
-  
-         while (name[i] != '\0') 
-                 i++; 
-         while (owner[j] != '\0') 
-                 j++; 
-         dog = malloc(sizeof(dog_t)); 
-         if (dog == NULL) 
-         { 
-                 free(dog); 
-                 return (NULL); 
-         } 
-         dog->name = malloc(i * sizeof(dog->name)); 
-         if (dog->name == NULL) 
-         { 
-                 free(dog->name); 
-                 free(dog); 
-                 return (NULL); 
-         } 
-         for (k = 0; k <= i; k++) 
-                 dog->name[k] = name[k]; 
-         dog->age = age; 
-         dog->owner = malloc(j * sizeof(dog->owner)); 
-         if (dog->owner == NULL) 
-         { 
-                 free(dog->owner); 
-                 free(dog->name); 
-                 free(dog); 
-                 return (NULL); 
-         } 
-         for (k = 0; k <= j; k++) 
-                 dog->owner[k] = owner[k]; 
-         return (dog); 
- }
+  * new_dog - creates a new dog 
+  * @name: name of the dog 
+  * @age: age of the dog 
+  * @owner: owner of the dog
+  *
+  * Return: pointer to the newdog, or NULL
+  * if function fails
+  */
+
+dog_t *new_dog(char *name, float age, char owner)
+{
+	dog_t *new_dog;
+	int name_len, owner_len;
+
+	if (name == NULL || owner == NULL)
+		return (NULL);
+
+	new_dog = malloc(sizeof(dog_t));
+	if (new_dog == NULL)
+		return (NULL);
+
+	name_len = strlen(name);
+	owner_len = strlen(owner);
+
+	new_dog->name = malloc(name_len + 1);
+	new_dog->owner = malloc(owner_len + 1);
+
+	if (new_dog->name == NULL || new_dog->owner == NULL)
+	{
+		free(new_dog->name);
+		free(new_dog->owner);
+		free(new_dog);
+		return (NULL);
+	}
+	strcpy(new_dog->name, name);
+	strcpy(new_dog->owner, owner);
+
+	new_dog->age = age;
+
+	return (new_dog);
+}
