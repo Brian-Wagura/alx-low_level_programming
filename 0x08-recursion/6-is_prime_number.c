@@ -4,20 +4,24 @@
  * is_prime_number - Check if a number is prime
  * @n: The input integer to be checked
  *
- * Return: 1 if @n is a prime number, 0 otherwise
+ * Return: void
  */
 
 int is_prime_number(int n)
 {
-	int i;
-
-	if (n <= 1)
-		return (0);
-
-	for (i = 2; i <= n / 2; i++)
+	if (n % 2 == 0)
 	{
-		if (n % i == 0)
-			return (0);
+		return (0);
 	}
-	return (1);
+
+	if (n <= 2)
+	{
+		return (0);
+	}
+	else
+	{
+		return (1);
+	}
+	n++;
+	return (is_prime_number(n));
 }
