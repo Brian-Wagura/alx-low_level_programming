@@ -2,7 +2,7 @@
 
 /**
  * _strlen - returns the length of a string
- * @s: The string to get the length of
+ * @s: A pointer to a string
  *
  * Return: The length of the string
  */
@@ -19,6 +19,24 @@ int _strlen(char *s)
 }
 
 /**
+ * check_palindrome - Checks if a string is a palindrome
+ * recursively
+ * @s: A pointer to a string
+ * @len: Length of a string
+ *
+ * Return: 1 if a string is a palindrome, 0 otherwise
+ */
+
+int check_palindrome(char *s, int len)
+{
+	if (len <= 1)
+		return (1);
+	if (*s == *(s + len - 1))
+		return (check_palindrome(s + 1, len - 2));
+	return (0);
+}
+
+/**
  * is_palindrome - checks if a string is a palindrome
  * @s: The string to check
  *
@@ -28,16 +46,9 @@ int _strlen(char *s)
 int is_palindrome(char *s)
 {
 	int len = _strlen(s);
-	int i, j;
 
-	if (len == 0)
+	if (len <= 1)
 		return (1);
 
-	for (i = 0, j = len - 1; i < j; i++, j--)
-	{
-		if (s[i] != s[j])
-			return (0);
-	}
-
-	return (1);
+	return (check_palindrome(s, len));
 }
